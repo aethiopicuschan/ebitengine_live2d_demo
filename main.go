@@ -24,33 +24,6 @@ const (
 	NAME           = "Haru"
 )
 
-var BlendForDraw = ebiten.Blend{
-	BlendFactorSourceRGB:        ebiten.BlendFactorOne,
-	BlendFactorSourceAlpha:      ebiten.BlendFactorOne,
-	BlendFactorDestinationRGB:   ebiten.BlendFactorOneMinusSourceAlpha,
-	BlendFactorDestinationAlpha: ebiten.BlendFactorOneMinusSourceAlpha,
-	BlendOperationRGB:           ebiten.BlendOperationAdd,
-	BlendOperationAlpha:         ebiten.BlendOperationAdd,
-}
-
-var BlendForMask = ebiten.Blend{
-	BlendFactorSourceRGB:        ebiten.BlendFactorOne,
-	BlendFactorSourceAlpha:      ebiten.BlendFactorOne,
-	BlendFactorDestinationRGB:   ebiten.BlendFactorOneMinusSourceAlpha,
-	BlendFactorDestinationAlpha: ebiten.BlendFactorOneMinusSourceAlpha,
-	BlendOperationRGB:           ebiten.BlendOperationAdd,
-	BlendOperationAlpha:         ebiten.BlendOperationAdd,
-}
-
-var BlendForMask2 = ebiten.Blend{
-	BlendFactorSourceRGB:        ebiten.BlendFactorZero,
-	BlendFactorSourceAlpha:      ebiten.BlendFactorZero,
-	BlendFactorDestinationRGB:   ebiten.BlendFactorOneMinusSourceColor,
-	BlendFactorDestinationAlpha: ebiten.BlendFactorOneMinusSourceAlpha,
-	BlendOperationRGB:           ebiten.BlendOperationAdd,
-	BlendOperationAlpha:         ebiten.BlendOperationAdd,
-}
-
 type Drawable struct {
 	textureIndex             int
 	vertexPositions          []Vertex2
