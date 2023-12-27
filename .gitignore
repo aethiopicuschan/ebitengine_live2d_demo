@@ -1,0 +1,6 @@
+.DS_Store
+Core/*
+**/ThirdParty/glew
+**/ThirdParty/glfw
+**/build
+.vscode

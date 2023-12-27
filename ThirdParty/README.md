@@ -1,0 +1,4 @@
+# ThirdParty
+
+GLEW_VERSION=2.2.0
+GLFW_VERSION=3.3.8
