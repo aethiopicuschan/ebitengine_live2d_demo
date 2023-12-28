@@ -140,21 +140,11 @@ func (g *Game) Update() error {
 		g.drawables[i].vertexPositionsDidChange = g.getDrawableDynamicFlagVertexPositionsDidChange(g.cubism, i)
 		g.drawables[i].vertices = make([]ebiten.Vertex, 0)
 		for j, pos := range g.drawables[i].vertexPositions {
-			// posは-1~1の範囲になっているので、画面サイズに合わせて変換する
-			x := (pos.X + 1) * float32(g.surface.Bounds().Dx()) / 2
-			y := (pos.Y + 1) * float32(g.surface.Bounds().Dy()) / 2
-			// 画像の左上を原点とするため、y座標を反転させる
-			y = float32(g.surface.Bounds().Dy()) - y
-			// UV座標は0~1の範囲になっているので、画像サイズに合わせて変換する
-			uvX := float32(g.drawables[i].vertexUVs[j].X) * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dx())
-			uvY := float32(g.drawables[i].vertexUVs[j].Y) * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dy())
-			// 画像の左上を原点とするため、y座標を反転させる
-			uvY = float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dy()) - uvY
 			g.drawables[i].vertices = append(g.drawables[i].vertices, ebiten.Vertex{
-				DstX:   x,
-				DstY:   y,
-				SrcX:   uvX,
-				SrcY:   uvY,
+				DstX:   (pos.X + 1) * float32(g.surface.Bounds().Dx()) / 2,
+				DstY:   (pos.Y*-1 + 1) * float32(g.surface.Bounds().Dy()) / 2,
+				SrcX:   g.drawables[i].vertexUVs[j].X * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dx()),
+				SrcY:   (1 - g.drawables[i].vertexUVs[j].Y) * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dy()),
 				ColorR: 1,
 				ColorG: 1,
 				ColorB: 1,
@@ -171,7 +161,6 @@ func (g *Game) Update() error {
 		g.scaleX = 1.0
 		g.scaleY = float64(g.width) / float64(g.height)
 	} else {
-		// projection.Scale(static_cast<float>(height) / static_cast<float>(width), 1.0f);
 		g.scaleX = float64(g.height) / float64(g.width)
 		g.scaleY = 1.0
 	}
@@ -226,7 +215,6 @@ func (g *Game) Layout(w, h int) (int, int) {
 		g.width = w
 		g.height = h
 	}
-	// return g.surface.Bounds().Dx(), g.surface.Bounds().Dy()
 	return w, h
 }
 
@@ -305,21 +293,11 @@ func main() {
 		g.drawables[i].isVisible = g.getDrawableDynamicFlagIsVisible(g.cubism, i)
 		g.drawables[i].vertices = make([]ebiten.Vertex, 0)
 		for j, pos := range g.drawables[i].vertexPositions {
-			// posは-1~1の範囲になっているので、画面サイズに合わせて変換する
-			x := (pos.X + 1) * float32(g.surface.Bounds().Dx()) / 2
-			y := (pos.Y + 1) * float32(g.surface.Bounds().Dy()) / 2
-			// 画像の左上を原点とするため、y座標を反転させる
-			y = float32(g.surface.Bounds().Dy()) - y
-			// UV座標は0~1の範囲になっているので、画像サイズに合わせて変換する
-			uvX := float32(g.drawables[i].vertexUVs[j].X) * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dx())
-			uvY := float32(g.drawables[i].vertexUVs[j].Y) * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dy())
-			// 画像の左上を原点とするため、y座標を反転させる
-			uvY = float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dy()) - uvY
 			g.drawables[i].vertices = append(g.drawables[i].vertices, ebiten.Vertex{
-				DstX:   x,
-				DstY:   y,
-				SrcX:   uvX,
-				SrcY:   uvY,
+				DstX:   (pos.X + 1) * float32(g.surface.Bounds().Dx()) / 2,
+				DstY:   (pos.Y*-1 + 1) * float32(g.surface.Bounds().Dy()) / 2,
+				SrcX:   g.drawables[i].vertexUVs[j].X * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dx()),
+				SrcY:   (1 - g.drawables[i].vertexUVs[j].Y) * float32(g.textureMap[g.drawables[i].textureIndex].Bounds().Dy()),
 				ColorR: 1,
 				ColorG: 1,
 				ColorB: 1,
